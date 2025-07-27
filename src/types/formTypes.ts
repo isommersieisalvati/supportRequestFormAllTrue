@@ -3,5 +3,5 @@ export interface RequestForm {
   email: string;
   issueType: string;
   tags: string[];
-  reproduceSteps: { value: string }[];
+  reproduceSteps: { step: string }[];
 }
