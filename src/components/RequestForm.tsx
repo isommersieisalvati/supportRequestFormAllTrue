@@ -78,13 +78,13 @@ const RequestForm: React.FC = () => {
   return (
     <div className="request-form">
       {/* Form Header */}
-      <div className="form-header">Submit Your Request Support Here</div>
+      <div className="form-header">Support Request</div>
       {/* Form */}
       <form onSubmit={handleSubmit(onSubmit)}>
         {/** Full Name Field */}
         <div className="form-full-name">
           <label htmlFor="fullName">Full Name:</label>
-          <input {...register("fullName")} />
+          <input id="fullName" {...register("fullName")} />
           {errors.fullName && <p>{errors.fullName.message}</p>}
         </div>
 
@@ -93,6 +93,7 @@ const RequestForm: React.FC = () => {
           <label htmlFor="email">Email:</label>
 
           <input
+            id="email"
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -112,6 +113,7 @@ const RequestForm: React.FC = () => {
             control={control}
             render={({ field }) => (
               <Select
+                inputId="issue-type"
                 options={issueOptions}
                 value={issueOptions.find(
                   (option) => option.value === field.value
@@ -152,10 +154,13 @@ const RequestForm: React.FC = () => {
 
         {/** Reproduce Steps Field */}
         <div className="form-reproduce-steps">
-          <label>Reproduce Steps:</label>
           {fields.map((field, index) => (
             <div key={field.id}>
+              <label htmlFor={`reproduce-steps-${index}`}>
+                Reproduce Step ${index + 1}:
+              </label>
               <input
+                id={`reproduce-steps-${index}`}
                 {...register(`reproduceSteps.${index}.step` as const)}
                 defaultValue={field.step}
               />
