@@ -1,7 +1,7 @@
-import './App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import RequestForm from './components/RequestForm';
-import Confirmation from './components/Confirmation';
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import RequestForm from "./components/RequestForm";
+import Confirmation from "./components/Confirmation";
 
 const App: React.FC = () => {
   return (
@@ -14,4 +14,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App
+export default App;
