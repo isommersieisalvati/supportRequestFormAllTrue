@@ -1,4 +1,4 @@
-export interface RequestForm {
+export interface SupportForm {
   fullName: string;
   email: string;
   issueType: string;

@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RequestForm } from "../types/formTypes";
+import type { SupportForm } from "../types/formTypes";
 
 interface FormState {
-  data: RequestForm | null;
+  data: SupportForm | null;
 }
 
 const initialState: FormState = {
@@ -14,7 +14,7 @@ export const formSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
-    saveFormData: (state, action: PayloadAction<RequestForm>) => {
+    saveFormData: (state, action: PayloadAction<SupportForm>) => {
       state.data = action.payload;
     },
   },

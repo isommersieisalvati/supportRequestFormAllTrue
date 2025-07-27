@@ -4,15 +4,17 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch } from "react-redux";
 import { saveFormData } from "../store/formSlice";
-import type { RequestForm } from "../types/formTypes";
+import type { SupportForm } from "../types/formTypes";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import "./RequestForm.css";
 
+// Define the schema for form validation using Zod
 const RequestFormSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
   email: z.string().email("Invalid email address"),
   issueType: z.string().min(1, "Issue type is required"),
-  tags: z.array(z.string()).min(1, "At least one tag is required"),
+  tags: z.array(z.string()).min(0),
   reproduceSteps: z
     .array(
       z.object({
@@ -27,12 +29,14 @@ type FormValues = z.infer<typeof RequestFormSchema>;
 const RequestForm: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Initialize the form with react-hook-form
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RequestForm>({
+  } = useForm<SupportForm>({
     defaultValues: {
       fullName: "",
       email: "",
@@ -44,6 +48,13 @@ const RequestForm: React.FC = () => {
     resolver: zodResolver(RequestFormSchema),
   });
 
+  // Use useFieldArray for dynamic fields
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "reproduceSteps",
+  });
+
+  // Options for issue type and tags
   const issueOptions = [
     { value: "bug", label: "Bug Report" },
     { value: "feature", label: "Feature Request" },
@@ -57,11 +68,7 @@ const RequestForm: React.FC = () => {
     { value: "security", label: "Security" },
   ];
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "reproduceSteps",
-  });
-
+  // Handle form submission
   const onSubmit = (data: FormValues) => {
     dispatch(saveFormData(data));
     console.log("Form saved to Redux:", data);
@@ -69,14 +76,20 @@ const RequestForm: React.FC = () => {
   };
 
   return (
-    <div className="support-form">
-      <div className="div">Submit Your Request Support Here</div>
+    <div className="request-form">
+      {/* Form Header */}
+      <div className="form-header">Submit Your Request Support Here</div>
+      {/* Form */}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="full-name">
+        {/** Full Name Field */}
+        <div className="form-full-name">
           <label htmlFor="fullName">Full Name:</label>
           <input {...register("fullName")} />
+          {errors.fullName && <p>{errors.fullName.message}</p>}
         </div>
-        <div className="email">
+
+        {/** Email Field */}
+        <div className="form-email">
           <label htmlFor="email">Email:</label>
 
           <input
@@ -90,8 +103,10 @@ const RequestForm: React.FC = () => {
           />
           {errors.email && <p>{errors.email.message}</p>}
         </div>
-        <div className="issue-type">
-          <label htmlFor="issueType">Issue Type:</label>
+
+        {/** Issue Type Field */}
+        <div className="form-issue-type">
+          <label htmlFor="issue-ype">Issue Type:</label>
           <Controller
             name="issueType"
             control={control}
@@ -107,11 +122,11 @@ const RequestForm: React.FC = () => {
               />
             )}
           />
-          {errors.issueType && (
-            <p className="text-red-500 text-sm">{errors.issueType.message}</p>
-          )}
+          {errors.issueType && <p>{errors.issueType.message}</p>}
         </div>
-        <div className="tags">
+
+        {/** Tags Field */}
+        <div className="form-tags">
           <label htmlFor="tags">Tags:</label>
           <Controller
             name="tags"
@@ -133,17 +148,20 @@ const RequestForm: React.FC = () => {
               />
             )}
           />
-          {errors.tags && <p style={{ color: "red" }}>{errors.tags.message}</p>}
         </div>
-        <div className="reproduce-steps">
-          <label>Reproduce Steps:</label>
 
+        {/** Reproduce Steps Field */}
+        <div className="form-reproduce-steps">
+          <label>Reproduce Steps:</label>
           {fields.map((field, index) => (
             <div key={field.id}>
               <input
                 {...register(`reproduceSteps.${index}.step` as const)}
                 defaultValue={field.step}
               />
+              {errors.reproduceSteps?.[index]?.step && (
+                <p>{errors.reproduceSteps[index].step.message}</p>
+              )}
               <button type="button" onClick={() => remove(index)}>
                 Remove
               </button>
@@ -152,8 +170,11 @@ const RequestForm: React.FC = () => {
           <button type="button" onClick={() => append({ step: "" })}>
             Add Another Step
           </button>
+          {errors.reproduceSteps && <p>{errors.reproduceSteps.message}</p>}
         </div>
-        <div className="submit">
+
+        {/** Submit Button */}
+        <div className="form-submit">
           <button type="submit">Submit</button>
         </div>
       </form>
