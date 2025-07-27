@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch } from 'react-redux';
 import { saveFormData } from '../store/formSlice';
 import type { RequestForm } from '../types/formTypes';
+import { useNavigate } from 'react-router-dom';
 
 
 const RequestFormSchema = z.object({
@@ -21,6 +22,7 @@ type FormValues = z.infer<typeof RequestFormSchema>;
 
 const RequestForm : React.FC= () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { control, register, handleSubmit,formState: { errors }, } = useForm<RequestForm>({
     defaultValues: {
       fullName: '',
@@ -41,6 +43,7 @@ const RequestForm : React.FC= () => {
   const onSubmit = (data: FormValues) => {
     dispatch(saveFormData(data));
     console.log('Form saved to Redux:', data);
+    navigate('/confirmation');
   }
 
   return (
@@ -60,11 +63,10 @@ const RequestForm : React.FC= () => {
         placeholder="Enter your email"
       />
       {errors.email && <p>{errors.email.message}</p>}
-      <input {...register("issueType")} placeholder="Issue Type" />
       <select {...register("issueType")}>
-        <option value="">Bug Report</option>
-        <option value="">Feature Request</option>
-        <option value="">General Inquiry</option>
+        <option value="bug">Bug Report</option>
+        <option value="feature">Feature Request</option>
+        <option value="general">General Inquiry</option>
       </select>
       <select
         id="tags"
