@@ -2,21 +2,20 @@
 
 .request-form {
   width: 800px;
-  height: 600px;
-  max-height: 1000px;
+  height: 700px;
   margin: auto;
-  background: #b7d0eb;
-  opacity: 0.8;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: rgba(127, 147, 193, 0.5);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .form-header {
   text-align: center;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 28px;
   color: #333;
   margin-bottom: 20px;
 }
@@ -46,49 +45,88 @@ label {
 
 input {
   background-color: aliceblue;
-  width: 100%;
+  width: 550px;
   border-radius: 4px;
 }
 
 .form-reproduce-steps {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  position: relative;
-  min-height: 200px;
-}
-
-.form-reproduce-steps .form-add-step {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  position: sticky;
+  gap: 12px;
 }
 
 .form-reproduce-steps .form-container {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  gap: 10px;
 }
 
 .form-reproduce-step {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-  height: 50px;
+  height: 60px;
 }
 
 .form-step-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  gap: 10px;
+}
+
+.form-step-container label {
+  width: 160px;
+  flex-shrink: 0;
+}
+
+.form-step-container input {
+  flex-grow: 1;
+  margin-right: 80px;
+  margin-left: 20px;
+  height: 30px;
+}
+
+.form-step-container button {
+  padding: 4px 8px;
+  background-color: #d9534f;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  position: absolute;
+  right: 30px;
+}
+
+.form-step-container button:hover {
+  background-color: #c9302c;
+}
+
+.form-reproduce-steps .form-add-step {
+  position: absolute;
+  bottom: 22px;
+  right: 130px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form-reproduce-steps .form-add-step:hover {
+  background-color: #286090;
+}
+
+.error-message {
+  font-size: 14px;
+  margin-top: 4px;
+  text-align: left;
+  margin-left: 200px;
+}
+
+.form-submit {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }

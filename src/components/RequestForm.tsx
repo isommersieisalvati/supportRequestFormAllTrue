@@ -7,6 +7,7 @@ import { saveFormData } from "../store/formSlice";
 import type { SupportForm } from "../types/formTypes";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import type { StylesConfig } from "react-select";
 import "./RequestForm.css";
 
 // Define the schema for form validation using Zod
@@ -68,6 +69,13 @@ const RequestForm: React.FC = () => {
     { value: "security", label: "Security" },
   ];
 
+  const selectStyles: StylesConfig = {
+    container: (provided) => ({
+      ...provided,
+      width: "550px",
+    }),
+  };
+
   // Handle form submission
   const onSubmit = (data: FormValues) => {
     dispatch(saveFormData(data));
@@ -123,6 +131,7 @@ const RequestForm: React.FC = () => {
                 <Select
                   inputId="issue-type"
                   options={issueOptions}
+                  styles={selectStyles}
                   value={issueOptions.find(
                     (option) => option.value === field.value
                   )}
@@ -150,6 +159,7 @@ const RequestForm: React.FC = () => {
                   {...field}
                   inputId="tags"
                   options={tagOptions}
+                  styles={selectStyles}
                   isMulti
                   className="basic-multi-select"
                   classNamePrefix="select"
@@ -185,7 +195,9 @@ const RequestForm: React.FC = () => {
                 </div>
 
                 {errors.reproduceSteps?.[index]?.step && (
-                  <p>{errors.reproduceSteps[index].step.message}</p>
+                  <p className="error-message">
+                    {errors.reproduceSteps[index].step.message}
+                  </p>
                 )}
               </div>
             ))}
@@ -195,7 +207,7 @@ const RequestForm: React.FC = () => {
             type="button"
             onClick={() => append({ step: "" })}
           >
-            Add Detailed Reproduce Steps
+            Add Reproduce Steps
           </button>
           {errors.reproduceSteps && (
             <p className="error-message">{errors.reproduceSteps.message}</p>
