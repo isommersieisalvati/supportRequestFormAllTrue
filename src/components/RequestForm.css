@@ -1,39 +1,94 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 
 .request-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: #f7fafd;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 800px;
+  height: 600px;
+  max-height: 1000px;
+  margin: auto;
+  background: #b7d0eb;
+  opacity: 0.8;
+  padding: 20px;
   border-radius: 8px;
-  font-family: "Montserrat", sans-serif;
-  color: #333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Header */
 .form-header {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #2c587f;
-  margin-bottom: 25px;
   text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 .form-full-name,
 .form-email,
 .form-issue-type,
-.form-tags,
-.form-reproduce-steps {
+.form-tags {
+  display: flex;
+  flex-direction: column;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.form-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 20px;
+  height: 30px;
 }
 
-.form-full-name,
-.form-email #label {
-  flex: 1;
+label {
+  font-family: "Montserrat", sans-serif;
+  width: 150px;
+  text-align: left;
+}
+
+input {
+  background-color: aliceblue;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.form-reproduce-steps {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+  min-height: 200px;
+}
+
+.form-reproduce-steps .form-add-step {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  position: sticky;
+}
+
+.form-reproduce-steps .form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.form-reproduce-step {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  height: 50px;
+}
+
+.form-step-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }

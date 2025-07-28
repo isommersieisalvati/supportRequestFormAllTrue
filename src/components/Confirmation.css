@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
+
+.confirmation {
+  background-color: beige;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.confirmation-tick {
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirmation-title {
+  font-family: "Sora", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #023047;
+}
+
+.confirmation-message {
+  font-size: 18px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.confirmation-subtitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}

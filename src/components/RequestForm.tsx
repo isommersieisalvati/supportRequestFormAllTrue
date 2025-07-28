@@ -83,99 +83,123 @@ const RequestForm: React.FC = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         {/** Full Name Field */}
         <div className="form-full-name">
-          <label htmlFor="fullName">Full Name:</label>
-          <input id="fullName" {...register("fullName")} />
-          {errors.fullName && <p>{errors.fullName.message}</p>}
+          <div className="form-container">
+            <label htmlFor="fullName">Full Name:</label>
+            <input id="fullName" {...register("fullName")} />
+          </div>
+          {errors.fullName && (
+            <p className="error-message">{errors.fullName.message}</p>
+          )}
         </div>
 
         {/** Email Field */}
         <div className="form-email">
-          <label htmlFor="email">Email:</label>
-
-          <input
-            id="email"
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "Invalid email address",
-              },
-            })}
-          />
-          {errors.email && <p>{errors.email.message}</p>}
+          <div className="form-container">
+            <label htmlFor="email">Email:</label>
+            <input
+              id="email"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Invalid email address",
+                },
+              })}
+            />
+          </div>
+          {errors.email && (
+            <p className="error-message">{errors.email.message}</p>
+          )}
         </div>
 
         {/** Issue Type Field */}
         <div className="form-issue-type">
-          <label htmlFor="issue-ype">Issue Type:</label>
-          <Controller
-            name="issueType"
-            control={control}
-            render={({ field }) => (
-              <Select
-                inputId="issue-type"
-                options={issueOptions}
-                value={issueOptions.find(
-                  (option) => option.value === field.value
-                )}
-                onChange={(selected) =>
-                  field.onChange(selected ? selected.value : "")
-                }
-              />
-            )}
-          />
-          {errors.issueType && <p>{errors.issueType.message}</p>}
+          <div className="form-container">
+            <label htmlFor="issue-ype">Issue Type:</label>
+            <Controller
+              name="issueType"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  inputId="issue-type"
+                  options={issueOptions}
+                  value={issueOptions.find(
+                    (option) => option.value === field.value
+                  )}
+                  onChange={(selected) =>
+                    field.onChange(selected ? selected.value : "")
+                  }
+                />
+              )}
+            />
+          </div>
+          {errors.issueType && (
+            <p className="error-message">{errors.issueType.message}</p>
+          )}
         </div>
 
         {/** Tags Field */}
         <div className="form-tags">
-          <label htmlFor="tags">Tags:</label>
-          <Controller
-            name="tags"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                inputId="tags"
-                options={tagOptions}
-                isMulti
-                className="basic-multi-select"
-                classNamePrefix="select"
-                onChange={(selected) => {
-                  field.onChange(selected.map((opt) => opt.value));
-                }}
-                value={tagOptions.filter((opt) =>
-                  field.value.includes(opt.value)
-                )}
-              />
-            )}
-          />
+          <div className="form-container">
+            <label htmlFor="tags">Tags:</label>
+            <Controller
+              name="tags"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  inputId="tags"
+                  options={tagOptions}
+                  isMulti
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  onChange={(selected) => {
+                    field.onChange(selected.map((opt) => opt.value));
+                  }}
+                  value={tagOptions.filter((opt) =>
+                    field.value.includes(opt.value)
+                  )}
+                />
+              )}
+            />
+          </div>
         </div>
 
         {/** Reproduce Steps Field */}
         <div className="form-reproduce-steps">
-          {fields.map((field, index) => (
-            <div key={field.id}>
-              <label htmlFor={`reproduce-steps-${index}`}>
-                Reproduce Step ${index + 1}:
-              </label>
-              <input
-                id={`reproduce-steps-${index}`}
-                {...register(`reproduceSteps.${index}.step` as const)}
-                defaultValue={field.step}
-              />
-              {errors.reproduceSteps?.[index]?.step && (
-                <p>{errors.reproduceSteps[index].step.message}</p>
-              )}
-              <button type="button" onClick={() => remove(index)}>
-                Remove
-              </button>
-            </div>
-          ))}
-          <button type="button" onClick={() => append({ step: "" })}>
-            Add Another Step
+          <div className="form-container">
+            {fields.map((field, index) => (
+              <div className="form-reproduce-step" key={field.id}>
+                <div className="form-step-container">
+                  <label htmlFor={`reproduce-steps-${index}`}>
+                    Reproduce Step {index + 1}:
+                  </label>
+                  <input
+                    id={`reproduce-steps-${index}`}
+                    {...register(`reproduceSteps.${index}.step` as const)}
+                    defaultValue={field.step}
+                  />
+                  <button type="button" onClick={() => remove(index)}>
+                    Remove
+                  </button>
+                </div>
+
+                {errors.reproduceSteps?.[index]?.step && (
+                  <p>{errors.reproduceSteps[index].step.message}</p>
+                )}
+              </div>
+            ))}
+          </div>
+          <button
+            className="form-add-step"
+            type="button"
+            onClick={() => append({ step: "" })}
+          >
+            Add Detailed Reproduce Steps
           </button>
-          {errors.reproduceSteps && <p>{errors.reproduceSteps.message}</p>}
+          {errors.reproduceSteps && (
+            <p className="error-message">{errors.reproduceSteps.message}</p>
+          )}
         </div>
 
         {/** Submit Button */}
